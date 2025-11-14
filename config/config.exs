@@ -52,7 +52,7 @@ config :spark,
 config :ashes,
   ecto_repos: [Ashes.Repo],
   generators: [timestamp_type: :utc_datetime],
-  ash_domains: [Ashes.Accounts]
+  ash_domains: [Ecosystem.Packages, Ashes.Accounts]
 
 # Configures the endpoint
 config :ashes, AshesWeb.Endpoint,
