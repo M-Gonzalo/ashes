@@ -8,21 +8,24 @@
       <p class="package-catalog-muted">
         Data based on <code>ash-project</code>
         packages and Hex packages that depend on <code>ash</code>.
-        This is not exhaustive; add or edit entries directly in the database.
+        This is not exhaustive; you can propose additions or updates via the project repository or an admin interface.
       </p>
     </header>
 
     <section class="package-catalog-toolbar">
       <div style="flex: 1 1 240px;">
-        <input
-          id="search"
-          name="search"
-          type="search"
-          value={@search}
-          phx-change="search"
-          placeholder="Filter by name, package, or description…"
-          style="width: 100%;"
-        />
+        <form phx-change="search" phx-submit="noop">
+          <input
+            id="search"
+            name="search"
+            type="search"
+            value={@search}
+            phx-input="search"
+            phx-debounce="250"
+            placeholder="Filter by name, package, or description…"
+            style="width: 100%;"
+          />
+        </form>
       </div>
       <div>
         <form phx-change="filter_category">

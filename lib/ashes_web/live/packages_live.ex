@@ -52,7 +52,40 @@ defmodule AshesWeb.PackagesLive do
       base_query(search, socket.assigns.category_filter, socket.assigns.active_tags) ++
         if(socket.assigns.filter_type != "", do: [filter: socket.assigns.filter_type], else: [])
 
-    {:noreply, push_patch(socket, to: build_path(query_params))}
+    socket =
+      socket
+      |> assign(:search, search)
+      |> apply_filters(
+        search,
+        socket.assigns.category_filter,
+        socket.assigns.filter_type,
+        socket.assigns.active_tags
+      )
+
+    {:noreply, push_patch(socket, to: build_path(query_params), replace: true)}
+  end
+
+  @impl true
+  def handle_event("noop", %{"search" => search}, socket) do
+    query_params =
+      base_query(search, socket.assigns.category_filter, socket.assigns.active_tags) ++
+        if(socket.assigns.filter_type != "", do: [filter: socket.assigns.filter_type], else: [])
+
+    socket =
+      socket
+      |> assign(:search, search)
+      |> apply_filters(
+        search,
+        socket.assigns.category_filter,
+        socket.assigns.filter_type,
+        socket.assigns.active_tags
+      )
+
+    {:noreply, push_patch(socket, to: build_path(query_params), replace: true)}
+  end
+
+  def handle_event("noop", _params, socket) do
+    {:noreply, socket}
   end
 
   @impl true
@@ -118,8 +151,6 @@ defmodule AshesWeb.PackagesLive do
 
   @impl true
   def handle_info(%Ash.Notifier.Notification{} = notification, socket) do
-    require Logger
-    Logger.debug("Ash notification received: " <> inspect(notification, limit: 50, printable_limit: 200))
 
     socket = load_packages(socket)
 
