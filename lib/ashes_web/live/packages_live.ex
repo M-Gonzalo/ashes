@@ -150,8 +150,7 @@ defmodule AshesWeb.PackagesLive do
   end
 
   @impl true
-  def handle_info(%Ash.Notifier.Notification{} = notification, socket) do
-
+  def handle_info(%Ash.Notifier.Notification{} = _notification, socket) do
     socket = load_packages(socket)
 
     socket =
