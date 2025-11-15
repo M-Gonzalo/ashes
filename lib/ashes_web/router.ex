@@ -38,6 +38,12 @@ defmodule AshesWeb.Router do
     end
   end
 
+  scope "/packages", AshesWeb do
+    pipe_through :browser
+
+    live "/", PackagesLive, :index
+  end
+
   scope "/", AshesWeb do
     pipe_through :browser
 

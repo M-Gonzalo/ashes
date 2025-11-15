@@ -24,13 +24,13 @@
   on Elixir colors. Build your own at: https://daisyui.com/theme-generator/ */
 @plugin "../vendor/daisyui-theme" {
   name: "dark";
-  default: false;
+  default: true;
   prefersdark: true;
   color-scheme: "dark";
-  --color-base-100: oklch(30.33% 0.016 252.42);
-  --color-base-200: oklch(25.26% 0.014 253.1);
-  --color-base-300: oklch(20.15% 0.012 254.09);
-  --color-base-content: oklch(97.807% 0.029 256.847);
+  --color-base-100: #0b1120;
+  --color-base-200: #0f172a;
+  --color-base-300: #020617;
+  --color-base-content: #e5e7eb;
   --color-primary: oklch(58% 0.233 277.117);
   --color-primary-content: oklch(96% 0.018 272.314);
   --color-secondary: oklch(58% 0.233 277.117);
@@ -62,26 +62,27 @@
   default: true;
   prefersdark: false;
   color-scheme: "light";
-  --color-base-100: oklch(98% 0 0);
-  --color-base-200: oklch(96% 0.001 286.375);
-  --color-base-300: oklch(92% 0.004 286.32);
-  --color-base-content: oklch(21% 0.006 285.885);
-  --color-primary: oklch(70% 0.213 47.604);
-  --color-primary-content: oklch(98% 0.016 73.684);
-  --color-secondary: oklch(55% 0.027 264.364);
-  --color-secondary-content: oklch(98% 0.002 247.839);
-  --color-accent: oklch(0% 0 0);
-  --color-accent-content: oklch(100% 0 0);
-  --color-neutral: oklch(44% 0.017 285.786);
-  --color-neutral-content: oklch(98% 0 0);
-  --color-info: oklch(62% 0.214 259.815);
-  --color-info-content: oklch(97% 0.014 254.604);
-  --color-success: oklch(70% 0.14 182.503);
-  --color-success-content: oklch(98% 0.014 180.72);
-  --color-warning: oklch(66% 0.179 58.318);
-  --color-warning-content: oklch(98% 0.022 95.277);
-  --color-error: oklch(58% 0.253 17.585);
-  --color-error-content: oklch(96% 0.015 12.422);
+  --color-base-100: #f7f7f8;
+  --color-base-200: #f1f1f3;
+  --color-base-300: #e9eaec;
+  --color-base-content: #0f172a;
+  --color-primary: #fb923c;
+  --color-primary-content: #ffffff;
+  --color-secondary: #6366f1;
+  --color-secondary-content: #ffffff;
+  --color-accent: #000000;
+  --color-accent-content: #ffffff;
+  --color-neutral: #6b7280;
+  --color-neutral-content: #101827;
+  --color-info: #0ea5e9;
+  --color-info-content: #ffffff;
+  --color-success: #16a34a;
+  --color-success-content: #ffffff;
+  --color-warning: #f97316;
+  --color-warning-content: #ffffff;
+  --color-error: #ef4444;
+  --color-error-content: #ffffff;
+  --color-base-content-muted: #374151;
   --radius-selector: 0.25rem;
   --radius-field: 0.25rem;
   --radius-box: 0.5rem;
@@ -104,3 +105,247 @@
 [data-phx-session], [data-phx-teleported-src] { display: contents }
 
 /* This file is for your main application CSS */
+
+/* Ash Ecosystem Package Catalog Styles */
+
+/* Dark mode body background to match reference */
+[data-theme="dark"] body {
+  background-color: var(--color-base-100);
+  color: #e5e7eb;
+}
+
+.package-catalog-page {
+  background: var(--color-base-100);
+  color: var(--color-base-content);
+}
+
+.package-catalog-header h1 {
+  @apply text-2xl font-bold mb-2;
+  margin: 0 0 0.5rem;
+  font-size: 2rem;
+}
+
+.package-catalog-header p {
+  @apply text-sm text-base-content/70 mb-1;
+  margin: 0.15rem 0;
+  font-size: 0.95rem;
+}
+
+.package-catalog-muted {
+  @apply text-sm text-base-content/50;
+  font-size: 0.8rem;
+}
+
+.package-catalog-toolbar {
+  @apply flex flex-wrap gap-3 mb-4;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  align-items: center;
+}
+
+.package-catalog-toolbar label {
+  @apply text-xs uppercase tracking-widest text-base-content/70;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.package-catalog-toolbar input,
+.package-catalog-toolbar select {
+  @apply rounded-full border border-base-300 bg-base-200 text-base-content text-sm px-3 py-2 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary;
+  border-radius: 999px;
+  border: 1px solid #1f2937;
+  padding: 0.4rem 0.9rem;
+  background: var(--color-base-300);
+  color: inherit;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.package-catalog-toolbar input:focus,
+.package-catalog-toolbar select:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 1px #38bdf8;
+}
+
+.package-catalog-chips {
+  @apply flex flex-wrap gap-2 mb-1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.1875rem;
+}
+
+.package-catalog-chip {
+  @apply rounded-full px-4 py-1 text-xs border border-base-300 bg-base-200 text-base-content/70 uppercase tracking-widest;
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.72rem;
+  border: 1px solid #1f2937;
+  background: var(--color-base-300);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.package-catalog-chip--primary {
+  @apply border-green-500/20 bg-green-500/10 text-green-300;
+  border-color: #22c55e33;
+  background: #16a34a1a;
+  color: #bbf7d0;
+}
+
+.package-catalog-chip--warning {
+  @apply border-orange-500/20 bg-orange-500/10 text-orange-300;
+  border-color: #f9731633;
+  background: #f973161a;
+  color: #fed7aa;
+}
+
+.package-catalog-chip--danger {
+  @apply border-red-500/20 bg-red-500/10 text-red-300;
+  border-color: #ef444433;
+  background: #ef44441a;
+  color: #fecaca;
+}
+
+.package-catalog-chip--community,
+.pill--community {
+  border-color: #a855f7;
+  background: #a855f71a;
+  color: #f5d0fe;
+}
+
+.package-catalog-card {
+  @apply border border-base-300 p-4 bg-gradient-to-br from-base-100 to-base-200 flex flex-col gap-2;
+  border-radius: 0.9rem;
+  border: 1px solid #1f2937;
+  padding: 1rem 1.1rem;
+  background: radial-gradient(circle at top left, var(--color-base-200), var(--color-base-300) 55%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  aspect-ratio: 1.618 / 1;
+  min-height: 140px;
+}
+
+.package-catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(286px, 1fr));
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+
+.package-catalog-card-header {
+  @apply flex justify-between items-center gap-2;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.package-catalog-card-title {
+  @apply font-medium text-sm flex flex-col gap-1;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.package-catalog-card-title small {
+  @apply text-xs font-mono text-base-content/70;
+  font-size: 0.78rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.package-catalog-card-category {
+  @apply text-xs uppercase tracking-widest rounded-full px-2 py-1 whitespace-nowrap;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  border-radius: 999px;
+  border: 1px solid #1f2937;
+  padding: 0.15rem 0.55rem;
+  white-space: nowrap;
+  color: #9ca3af;
+}
+
+.package-catalog-card-description {
+  @apply text-sm text-base-content/80;
+  font-size: 0.9rem;
+  color: #d1d5db;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.package-catalog-card-footer {
+  @apply flex justify-between items-center mt-2;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+.package-catalog-pill-row {
+  @apply flex flex-wrap gap-1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.package-catalog-pill {
+  @apply text-xs uppercase tracking-widest border border-base-300 px-2 py-1 text-base-content/70 whitespace-nowrap rounded-full;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: 999px;
+  border: 1px solid #1f2937;
+  white-space: nowrap;
+}
+
+.pill--official {
+  border-color: #22c55e33;
+  background: #16a34a1a;
+  color: #bbf7d0;
+}
+
+.pill--community {
+  border-color: #a855f7;
+  color: #f5d0fe;
+}
+
+.package-catalog-links {
+  @apply flex flex-wrap gap-1 justify-end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  justify-content: flex-end;
+}
+
+.package-catalog-link {
+  @apply text-sm text-sky-400 border border-sky-500 rounded-full px-2 py-1 bg-base-100 hover:bg-sky-500 hover:text-base-100 transition-colors;
+  font-size: 0.76rem;
+  text-decoration: none;
+  color: #38bdf8;
+  border-radius: 999px;
+  border: 1px solid #0ea5e9;
+  padding: 0.12rem 0.55rem;
+  background: var(--color-base-100);
+}
+
+.package-catalog-link:hover {
+  background: #0ea5e9;
+  color: var(--color-base-100);
+}
+
+.package-catalog-count {
+  @apply text-sm text-base-content/70 mt-0;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}

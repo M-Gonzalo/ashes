@@ -17,7 +17,8 @@ config :ash,
   default_actions_require_atomic?: true,
   read_action_after_action_hooks_in_order?: true,
   bulk_actions_default_to_errors?: true,
-  transaction_rollback_on_error?: true
+  transaction_rollback_on_error?: true,
+  pub_sub: [debug?: true]
 
 config :spark,
   formatter: [

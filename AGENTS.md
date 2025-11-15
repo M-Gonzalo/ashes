@@ -450,3 +450,131 @@ _The PostgreSQL data layer for Ash Framework_
 [ash_postgres usage rules](deps/ash_postgres/usage-rules.md)
 <!-- ash_postgres-end -->
 <!-- usage-rules-end -->
+
+
+## Using Ash from iex (preferred way to work with data)
+
+Overview
+
+Ash is the source of truth for all data operations in this app. When you need to inspect, read, create, or update data from the iex shell, always go through Ash Domains and Resources instead of raw SQL or direct Ecto calls.
+
+Benefits
+- Enforces actions, validations, changes, authorizers, and policies
+- Emits PubSub notifications for LiveView updates
+- Keeps behavior consistent with the application code paths
+
+Quick start
+
+1) Alias the domain and key resources
+
+  iex> alias Ecosystem.Packages
+  iex> alias Ecosystem.Packages.Package
+
+2) Discover code interface functions on the domain
+
+  iex> exports(Ecosystem.Packages)
+  # Look for:
+  #  - get_packages/5 and get_packages!/5
+  #  - add_github_repo/2 and add_github_repo!/2
+  #  - get_tag_by_name/1 and get_tag_by_name!/1
+
+Reading data via the domain code interface
+
+Use the domain-defined code interface whenever possible. get_packages!/5 accepts:
+
+  category :: String.t() | nil
+  official :: boolean() | nil
+  status   :: String.t() | nil
+  tags     :: [String.t()]
+  search   :: String.t()
+
+Options can include load: and query: directives.
+
+Examples
+
+- All packages (preload tags, sort by name):
+
+  iex> Packages.get_packages!(nil, nil, nil, [], "", load: [:tags], query: [sort: [:name]])
+
+- Search by name/package/description:
+
+  iex> Packages.get_packages!(nil, nil, nil, [], "ash", load: [:tags], query: [sort: [:name]])
+
+- Filter by category and official:
+
+  iex> Packages.get_packages!("api", true, nil, [], "", load: [:tags], query: [sort: [:name]])
+
+Fetching a single record
+
+If no dedicated getter exists, filter and pick:
+
+  iex> pkgs = Packages.get_packages!(nil, nil, nil, [], "ash_jason")
+  iex> ash_jason = Enum.find(pkgs, &(&1.package == "ash_jason"))
+
+Updating data
+
+Prefer action-specific domain functions. This project defines add_github_repo!/2:
+
+  iex> Packages.add_github_repo!(ash_jason, %{github_repo_handle: "owner/repo"})
+
+Non-bang with explicit error handling:
+
+  iex> case Packages.add_github_repo(ash_jason, %{github_repo_handle: "owner/repo"}) do
+  ...>   {:ok, updated} -> updated
+  ...>   {:error, reason} -> reason
+  ...> end
+
+Building queries with Ash (not Ecto)
+
+When you need custom reads, use Ash.Query on the Resource:
+
+  iex> Package
+  ...> |> Ash.Query.for_read(:read)
+  ...> |> Ash.Query.load([:tags])
+  ...> |> Ash.Query.sort([:name])
+  ...> |> Ash.read!()
+
+Filter example:
+
+  iex> Package
+  ...> |> Ash.Query.for_read(:read)
+  ...> |> Ash.Query.filter(package == "ash_jason")
+  ...> |> Ash.read!()
+
+Low-level writes via the Resource
+
+If a domain function isn’t exposed, use the Resource action via Ash.Changeset:
+
+- Update:
+
+  iex> cs = Package |> Ash.Changeset.for_update(:add_github_repo, %{github_repo_handle: "owner/repo"})
+  iex> Ash.update!(cs)
+
+- Create:
+
+  iex> attrs = %{name: "Ash Jason", package: "ash_jason", category: "api", official: false, kind: "extension", status: "stable", description: "Implements Jason protocol support for Ash resources.", github_repo_handle: "vonagam/ash_jason"}
+  iex> cs = Package |> Ash.Changeset.for_create(:create, attrs)
+  iex> Ash.create!(cs)
+
+Loading relationships and calculations
+
+Use load: to fetch relationships/calculations in one call:
+
+  iex> Packages.get_packages!(nil, nil, nil, [], "", load: [:tags])
+
+Or via the Resource query:
+
+  iex> Package |> Ash.Query.for_read(:read) |> Ash.Query.load([:tags]) |> Ash.read!()
+
+PubSub and LiveView
+
+Changes made via Ash actions emit PubSub events per the resource’s pub_sub configuration. LiveViews should subscribe to those topics and handle either:
+- %Phoenix.Socket.Broadcast{} when the pub_sub module is the Endpoint, or
+- %Ash.Notifier.Notification{} when broadcast_type :notification is used with a named PubSub.
+
+Guidelines
+
+- Always prefer the domain code interface for reads and writes
+- Include load: and query: options to mirror app behavior
+- Use bang (!) variants for quick exploration; switch to non-bang for error handling
+- Avoid Repo and raw SQL to prevent bypassing validations, changes, authorization, and notifications

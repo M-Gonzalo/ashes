@@ -1,5 +1,11 @@
 defmodule Ecosystem.Packages.Package do
-  use Ash.Resource, otp_app: :ashes, domain: Ecosystem.Packages, data_layer: AshSqlite.DataLayer
+  use Ash.Resource,
+    otp_app: :ashes,
+    domain: Ecosystem.Packages,
+    data_layer: AshSqlite.DataLayer,
+    notifiers: [Ash.Notifier.PubSub]
+
+  import Ash.Expr
 
   sqlite do
     table "packages"
@@ -7,20 +13,10 @@ defmodule Ecosystem.Packages.Package do
   end
 
   actions do
-    defaults [
-      :read,
-      :destroy,
-      create: [
-        :name,
-        :package,
-        :category,
-        :official,
-        :kind,
-        :status,
-        :description,
-        :github_repo_handle
-      ],
-      update: [
+    defaults [:read, :destroy]
+
+    create :create do
+      accept [
         :name,
         :package,
         :category,
@@ -30,7 +26,59 @@ defmodule Ecosystem.Packages.Package do
         :description,
         :github_repo_handle
       ]
-    ]
+    end
+
+    update :update do
+      accept [
+        :name,
+        :package,
+        :category,
+        :official,
+        :kind,
+        :status,
+        :description,
+        :github_repo_handle
+      ]
+    end
+
+    update :add_github_repo do
+      accept [:github_repo_handle]
+    end
+
+    read :packages do
+      argument :category, :string, allow_nil?: true
+      argument :official, :boolean, allow_nil?: true
+      argument :status, :string, allow_nil?: true
+      argument :tags, {:array, :string}, allow_nil?: true, default: []
+      argument :search, :string, allow_nil?: true, default: ""
+
+      filter expr(
+               (is_nil(^arg(:category)) or category == ^arg(:category)) and
+                 (is_nil(^arg(:official)) or official == ^arg(:official)) and
+                 (is_nil(^arg(:status)) or status == ^arg(:status))
+             )
+
+      prepare fn query, _context ->
+        tags = Ash.Query.get_argument(query, :tags) || []
+        search = Ash.Query.get_argument(query, :search) || ""
+
+        query
+        |> apply_tags_filter(tags)
+        |> apply_search_filter(search)
+      end
+    end
+  end
+
+  pub_sub do
+    module AshesWeb.Endpoint
+    prefix "package"
+
+    publish :create, ["created", :id]
+    publish :update, ["updated"]
+    publish :update, ["updated", :id]
+    publish :add_github_repo, ["updated"]
+    publish :add_github_repo, ["updated", :id]
+    publish :destroy, ["destroyed", :id]
   end
 
   attributes do
@@ -94,7 +142,15 @@ defmodule Ecosystem.Packages.Package do
       public? true
     end
 
-    calculate :deepwiki_url, :string, expr("https://deepwiki.com/" <> github_repo_handle) do
+    calculate :deepwiki_url,
+              :string,
+              expr(
+                if is_nil(github_repo_handle) do
+                  nil
+                else
+                  "https://deepwiki.com/" <> github_repo_handle
+                end
+              ) do
       public? true
     end
   end
@@ -102,5 +158,31 @@ defmodule Ecosystem.Packages.Package do
   identities do
     identity :by_package, [:package]
     identity :by_github_repo_handle, [:github_repo_handle]
+  end
+
+  # Helper functions - build expressions that will be passed to Ash.Query.filter
+  defp apply_tags_filter(query, []), do: query
+
+  defp apply_tags_filter(query, tags) do
+    filter_expr =
+      Enum.reduce(tags, expr(true), fn tag, acc ->
+        expr(^acc and exists(tags, name == ^tag))
+      end)
+
+    Ash.Query.do_filter(query, filter_expr)
+  end
+
+  defp apply_search_filter(query, ""), do: query
+
+  defp apply_search_filter(query, search) do
+    Ash.Query.do_filter(
+      query,
+      expr(
+        contains(name, ^search) or
+          contains(package, ^search) or
+          contains(description, ^search) or
+          exists(tags, contains(name, ^search))
+      )
+    )
   end
 end

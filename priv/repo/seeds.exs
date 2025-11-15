@@ -22,7 +22,7 @@ packages = [
     tags: ~w(core resources dsl),
     description:
       "The core Ash framework: a declarative, resource-oriented application layer for Elixir.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash"
   },
   %{
     name: "Ash Core",
@@ -33,7 +33,7 @@ packages = [
     status: "stable",
     tags: ~w(core resources),
     description: "Lower-level resource declaration and interaction library used inside Ash.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_core"
   },
 
   # Data layers
@@ -46,7 +46,7 @@ packages = [
     status: "stable",
     tags: ~w(postgres ecto sql),
     description: "PostgreSQL data layer for Ash; the most feature-complete SQL backend.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_postgres"
   },
   %{
     name: "AshSqlite",
@@ -57,7 +57,7 @@ packages = [
     status: "stable",
     tags: ~w(sqlite sql),
     description: "SQLite data layer for Ash, using shared SQL utilities from ash_sql.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_sqlite"
   },
   %{
     name: "Ash CSV",
@@ -68,7 +68,7 @@ packages = [
     status: "stable",
     tags: ~w(csv files),
     description: "CSV data layer for Ash resources.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_csv"
   },
   %{
     name: "Ash Neo4j",
@@ -79,7 +79,7 @@ packages = [
     status: "stable",
     tags: ~w(neo4j graph community),
     description: "Neo4j data layer for Ash, for graph-style data models.",
-    github_repo_handle: nil
+    github_repo_handle: "diffo-dev/ash_neo4j"
   },
   %{
     name: "Ash Sanity",
@@ -90,7 +90,7 @@ packages = [
     status: "stable",
     tags: ~w(cms sanity headless),
     description: "Data layer that maps Ash resources onto the Sanity.io headless CMS.",
-    github_repo_handle: nil
+    github_repo_handle: "Level-All/ash_sanity"
   },
 
   # API & transport
@@ -103,7 +103,7 @@ packages = [
     status: "stable",
     tags: ~w(phoenix liveview),
     description: "Utilities for integrating Ash with Phoenix and LiveView.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_phoenix"
   },
   %{
     name: "AshGraphQL",
@@ -114,7 +114,7 @@ packages = [
     status: "stable",
     tags: ~w(graphql api),
     description: "GraphQL extension for exposing Ash resources via Absinthe.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_graphql"
   },
   %{
     name: "AshJsonApi",
@@ -125,7 +125,7 @@ packages = [
     status: "stable",
     tags: ~w(jsonapi rest),
     description: "JSON:API extension; build JSON:API-compliant endpoints from Ash resources.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_json_api"
   },
   %{
     name: "Ash Jason",
@@ -136,7 +136,7 @@ packages = [
     status: "stable",
     tags: ~w(json encoding),
     description: "Implements Jason protocol support for Ash resources.",
-    github_repo_handle: nil
+    github_repo_handle: "vonagam/ash_jason"
   },
   %{
     name: "Ash RPC",
@@ -161,7 +161,7 @@ packages = [
     status: "stable",
     tags: ~w(auth login passwordless),
     description: "Authentication extension for Ash: strategies, flows, and resource integration.",
-    github_repo_handle: nil
+    github_repo_handle: "team-alembic/ash_authentication"
   },
   %{
     name: "AshAuthentication Phoenix",
@@ -172,7 +172,7 @@ packages = [
     status: "stable",
     tags: ~w(auth phoenix),
     description: "Phoenix and LiveView integration helpers for AshAuthentication.",
-    github_repo_handle: nil
+    github_repo_handle: "team-alembic/ash_authentication_phoenix"
   },
   %{
     name: "Ash Cloak",
@@ -183,7 +183,7 @@ packages = [
     status: "stable",
     tags: ~w(encryption cloak),
     description: "Encrypt and decrypt resource attributes seamlessly using Cloak.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_cloak"
   },
   %{
     name: "Ash Policy Access",
@@ -194,7 +194,7 @@ packages = [
     status: "stable",
     tags: ~w(policies authorization),
     description: "Policy-based access helper; builds on Ash's authorization tooling.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_policy_access"
   },
   %{
     name: "Ash Policy Authorizer",
@@ -205,7 +205,7 @@ packages = [
     status: "retired",
     tags: ~w(policies authorization),
     description: "Retired: early policy-based authorizer; functionality moved into core Ash.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_policy_authorizer"
   },
   %{
     name: "Ash RBAC",
@@ -216,7 +216,7 @@ packages = [
     status: "stable",
     tags: ~w(rbac policies community),
     description: "Extension that simplifies applying policy-based access patterns via roles.",
-    github_repo_handle: nil
+    github_repo_handle: "silentsolutionsdigital/ash-rbac"
   },
   %{
     name: "Ash Rate Limiter",
@@ -227,7 +227,7 @@ packages = [
     status: "stable",
     tags: ~w(rate-limit throttling),
     description: "Rate limiting extension for Ash, useful for APIs and public actions.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_rate_limiter"
   },
 
   # Domain behavior & business logic
@@ -240,7 +240,7 @@ packages = [
     status: "stable",
     tags: ~w(soft-delete archival),
     description: "Implements archival (soft deletion) for resources with additional DSL support.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_archival"
   },
   %{
     name: "Ash Paper Trail",
@@ -251,7 +251,7 @@ packages = [
     status: "stable",
     tags: ~w(audit versioning),
     description: "Audit log and versioning extension: track and query changes to resources.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_paper_trail"
   },
   %{
     name: "Ash State Machine",
@@ -262,7 +262,7 @@ packages = [
     status: "stable",
     tags: ~w(workflow states),
     description: "Defines state machines on resources, with transitions and guard logic.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_state_machine"
   },
   %{
     name: "Ash Events",
@@ -273,7 +273,7 @@ packages = [
     status: "stable",
     tags: ~w(events event-sourcing),
     description: "Tracks changes to resources in a central event log with replay support.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_events"
   },
   %{
     name: "Ash Double Entry",
@@ -284,7 +284,7 @@ packages = [
     status: "stable",
     tags: ~w(accounting finance),
     description: "Implements a customizable double-entry bookkeeping system using Ash resources.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_double_entry"
   },
   %{
     name: "Ash Money",
@@ -295,7 +295,7 @@ packages = [
     status: "stable",
     tags: ~w(money currency),
     description: "Adds money-related types and conveniences for handling monetary values.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_money"
   },
   %{
     name: "Ash Parental",
@@ -317,7 +317,7 @@ packages = [
     status: "stable",
     tags: ~w(protocol extensions),
     description: "Implements the Outstanding protocol for Ash resources.",
-    github_repo_handle: nil
+    github_repo_handle: "diffo-dev/ash_outstanding"
   },
   %{
     name: "Ash Translation",
@@ -352,7 +352,7 @@ packages = [
     status: "stable",
     tags: ~w(admin liveview),
     description: "Super-admin UI for Ash applications, built with Phoenix LiveView.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_admin"
   },
   %{
     name: "Ash Pyro",
@@ -363,7 +363,7 @@ packages = [
     status: "stable",
     tags: ~w(ui liveview),
     description: "Declarative UI toolkit for Ash, focused on LiveView-based interfaces.",
-    github_repo_handle: nil
+    github_repo_handle: "frankdugan3/ash_pyro"
   },
   %{
     name: "Ash Pyro Components",
@@ -374,7 +374,7 @@ packages = [
     status: "stable",
     tags: ~w(ui codegen),
     description: "Automatically renders UI for Ash resources using DSL-based configuration.",
-    github_repo_handle: nil
+    github_repo_handle: "frankdugan3/ash_pyro_components"
   },
   %{
     name: "AshPagify",
@@ -407,7 +407,7 @@ packages = [
     status: "early",
     tags: ~w(admin backpex),
     description: "Integration between Ash and Backpex admin panel, with a DSL for admin UIs.",
-    github_repo_handle: nil
+    github_repo_handle: "enoonan/ash_backpex"
   },
   %{
     name: "Ash Diagram",
@@ -418,7 +418,7 @@ packages = [
     status: "stable",
     tags: ~w(diagrams visualization),
     description: "Generates interactive diagrams to visualize your Ash applications.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_diagram"
   },
 
   # Observability & background jobs
@@ -431,7 +431,7 @@ packages = [
     status: "stable",
     tags: ~w(jobs oban),
     description: "Integrates Ash resources and actions with Oban background jobs.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_oban"
   },
   %{
     name: "Ash AppSignal",
@@ -442,7 +442,7 @@ packages = [
     status: "stable",
     tags: ~w(apm monitoring),
     description: "AppSignal APM integration tailored for Ash-based applications.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_appsignal"
   },
   %{
     name: "OpenTelemetry Ash",
@@ -453,7 +453,7 @@ packages = [
     status: "stable",
     tags: ~w(telemetry tracing),
     description: "OpenTelemetry integration for tracing Ash operations and requests.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/opentelemetry_ash"
   },
 
   # Workflow & orchestration
@@ -466,7 +466,7 @@ packages = [
     status: "stable",
     tags: ~w(workflows graphs),
     description: "Asynchronous, graph-based execution engine; used heavily with Ash workflows.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/reactor"
   },
   %{
     name: "Ash Flow",
@@ -477,7 +477,7 @@ packages = [
     status: "soft-deprecated",
     tags: ~w(workflows legacy),
     description: "Soft-deprecated: earlier workflow composition tool for Ash resources.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_flow"
   },
 
   # Testing & fixtures
@@ -491,7 +491,7 @@ packages = [
     tags: ~w(fixtures testing),
     description:
       "Reusable test data generation with dependency resolution and scenario composition.",
-    github_repo_handle: nil
+    github_repo_handle: "devall-org/ash_scenario"
   },
   %{
     name: "Ash Random Params",
@@ -502,7 +502,7 @@ packages = [
     status: "stable",
     tags: ~w(testing generators),
     description: "Generates random parameter sets for Ash resources (useful in tests).",
-    github_repo_handle: nil
+    github_repo_handle: "devall-org/ash_random_params"
   },
   %{
     name: "Ash Mock",
@@ -513,7 +513,7 @@ packages = [
     status: "stable",
     tags: ~w(mocking testing),
     description: "Helpers for mocking Ash behaviors in tests.",
-    github_repo_handle: nil
+    github_repo_handle: "devall-org/ash_mock"
   },
 
   # Tooling & DX
@@ -526,7 +526,7 @@ packages = [
     status: "stable",
     tags: ~w(typescript codegen),
     description: "Generates TypeScript types and helpers from Ash resources and APIs.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_typescript"
   },
   %{
     name: "Ash Ops",
@@ -537,7 +537,7 @@ packages = [
     status: "stable",
     tags: ~w(mix tasks),
     description: "Generates mix tasks for Ash actions to simplify operational workflows.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_ops"
   },
   %{
     name: "Ash Query Builder",
@@ -581,7 +581,7 @@ packages = [
     status: "stable",
     tags: ~w(ai llm),
     description: "Integrated LLM features for Ash apps (prompting, workflows, etc.).",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/ash_ai"
   },
   %{
     name: "Usage Rules",
@@ -592,7 +592,7 @@ packages = [
     status: "stable",
     tags: ~w(guides rules),
     description: "Dev tool that gathers LLM usage rules from dependencies like Ash packages.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/usage_rules"
   },
   %{
     name: "Igniter",
@@ -604,7 +604,7 @@ packages = [
     tags: ~w(codegen project-setup),
     description:
       "Code generation and project patching framework, used heavily by Ash installers.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/igniter"
   },
   %{
     name: "Spark",
@@ -615,7 +615,7 @@ packages = [
     status: "stable",
     tags: ~w(dsl compiler),
     description: "Generic DSL tooling used as the underlying engine for Ash's DSL.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/spark"
   },
   %{
     name: "Clarity",
@@ -627,7 +627,7 @@ packages = [
     tags: ~w(introspection graphs),
     description:
       "Interactive introspection and visualization tool for Ash, Phoenix, and Ecto projects.",
-    github_repo_handle: nil
+    github_repo_handle: "ash-project/clarity"
   }
 ]
 

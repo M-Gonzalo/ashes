@@ -1,0 +1,126 @@
+<Layouts.app flash={@flash} current_scope={assigns[:current_scope]} show_navbar={false}>
+  <div class="package-catalog-page">
+    <header class="package-catalog-header">
+      <h1>Ash Framework Ecosystem Catalog</h1>
+      <p>
+        A curated snapshot of Ash extensions, data layers, UI tooling, and ecosystem libraries.
+      </p>
+      <p class="package-catalog-muted">
+        Data based on <code>ash-project</code>
+        packages and Hex packages that depend on <code>ash</code>.
+        This is not exhaustive; add or edit entries directly in the database.
+      </p>
+    </header>
+
+    <section class="package-catalog-toolbar">
+      <div style="flex: 1 1 240px;">
+        <input
+          id="search"
+          name="search"
+          type="search"
+          value={@search}
+          phx-change="search"
+          placeholder="Filter by name, package, or description…"
+          style="width: 100%;"
+        />
+      </div>
+      <div>
+        <form phx-change="filter_category">
+          <select id="category-filter" name="category" value={@category_filter}>
+            <%= for {label, value} <- @categories do %>
+              <option value={value} selected={@category_filter == value}>{label}</option>
+            <% end %>
+          </select>
+        </form>
+      </div>
+    </section>
+
+    <div class="package-catalog-chips">
+      <%= if @filter_type == "" do %>
+        <.status_chip
+          label="Official = maintained by ash-project"
+          value="official"
+          class="package-catalog-chip package-catalog-chip--primary"
+          style="border-color: #22c55e33; background: #16a34a1a; color: #bbf7d0;"
+        />
+        <.status_chip
+          label="Community = external maintainer"
+          value="community"
+          class="package-catalog-chip package-catalog-chip--community"
+          style="border-color: #a855f733; background: #a855f71a; color: #f5d0fe;"
+        />
+        <.status_chip
+          label="Soft-deprecated = prefer newer approach"
+          value="soft-deprecated"
+          class="package-catalog-chip package-catalog-chip--warning"
+          style="border-color: #f9731633; background: #f973161a; color: #fed7aa;"
+        />
+        <.status_chip
+          label="Retired = historical only"
+          value="retired"
+          class="package-catalog-chip package-catalog-chip--danger"
+          style="border-color: #ef444433; background: #ef44441a; color: #fecaca;"
+        />
+      <% else %>
+        <%= case @filter_type do %>
+          <% "official" -> %>
+            <.status_chip
+              label="Official = maintained by ash-project"
+              value="official"
+              selected
+              class="package-catalog-chip package-catalog-chip--primary"
+              style="border-color: #22c55e33; background: #16a34a1a; color: #bbf7d0;"
+            />
+          <% "community" -> %>
+            <.status_chip
+              label="Community = external maintainer"
+              value="community"
+              selected
+              class="package-catalog-chip package-catalog-chip--community"
+              style="border-color: #a855f7; color: #f5d0fe;"
+            />
+          <% "soft-deprecated" -> %>
+            <.status_chip
+              label="Soft-deprecated = prefer newer approach"
+              value="soft-deprecated"
+              selected
+              class="package-catalog-chip package-catalog-chip--warning"
+              style="border-color: #f9731633; background: #f973161a; color: #fed7aa;"
+            />
+          <% "retired" -> %>
+            <.status_chip
+              label="Retired = historical only"
+              value="retired"
+              selected
+              class="package-catalog-chip package-catalog-chip--danger"
+              style="border-color: #ef444433; background: #ef44441a; color: #fecaca;"
+            />
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= if @active_tags != [] do %>
+      <div class="package-catalog-chips">
+        <%= for tag <- @active_tags do %>
+          <% {class, style} = AshesWeb.PillHelpers.pill_style(tag) %>
+          <span
+            class={"#{class} cursor-pointer"}
+            style={style}
+            phx-click="remove_tag"
+            phx-value-tag={tag}
+          >
+            {tag} <.icon name="hero-x-mark" class="w-3 h-3" />
+          </span>
+        <% end %>
+      </div>
+    <% end %>
+
+    <p class="package-catalog-count">{length(@filtered_packages)} components shown</p>
+
+    <section class="package-catalog-grid">
+      <%= for package <- @filtered_packages do %>
+        <AshesWeb.Components.PackageCard.package_card package={package} />
+      <% end %>
+    </section>
+  </div>
+</Layouts.app>
