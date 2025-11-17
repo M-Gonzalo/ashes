@@ -1,8 +1,8 @@
 defmodule AshesWeb.PageControllerTest do
   use AshesWeb.ConnCase
 
-  test "GET /", %{conn: conn} do
+  test "GET / redirects to /packages", %{conn: conn} do
     conn = get(conn, ~p"/")
-    assert html_response(conn, 200) =~ "Peace of mind from prototype to production"
+    assert redirected_to(conn, 302) == ~p"/packages"
   end
 end
