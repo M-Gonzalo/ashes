@@ -48,6 +48,7 @@ defmodule AshesWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/celine", CelineController, :show
     auth_routes AuthController, Ashes.Accounts.User, path: "/auth"
     sign_out_route AuthController
 
