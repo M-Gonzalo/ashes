@@ -155,10 +155,10 @@ main {
 
 .package-catalog-header h1 {
   @apply text-2xl font-bold mb-2;
-  margin: 0 0 0.75rem;
-  font-size: 2.25rem;
+  margin: 0 0 0.5rem;
+  font-size: 2.5rem;
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.1;
   letter-spacing: -0.025em;
 }
 
