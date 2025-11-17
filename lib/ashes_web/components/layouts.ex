@@ -69,7 +69,7 @@ defmodule AshesWeb.Layouts do
     <% end %>
 
     <main>
-      <div class="mx-auto" style="max-width: 1150px; padding: 2rem 1.25rem 3rem;">
+      <div class="mx-auto" style="max-width: min(98vw, 2000px); padding: 0.5rem 1.5rem 3rem;">
         {render_slot(@inner_block)}
       </div>
     </main>
